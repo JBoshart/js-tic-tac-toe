@@ -52,6 +52,7 @@ TicTacToe.prototype.makePlay = function(spot) {
 }
 
 TicTacToe.prototype.hasWon = function(row, col) {
+  // This works, but can I check only the combos from the spot coming in? This would reduce the number of win combos to check down to 3 (rather than checking all 8). 
   var top = this._gameboard['top_row'][0]
   var mid = this._gameboard['middle_row'][0]
   var bot = this._gameboard['top_row'][0]
