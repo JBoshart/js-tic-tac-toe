@@ -10,20 +10,27 @@
     <h1>Tic Tac Toe</h1>
     <div id="tic-tac-toe"></div>
       <div class="game-control">
-        <button class="new-game">New Game!</button>
+        <!-- <button class="new-game">New Game!</button> -->
       </div>
       <div class="gameboard">
-        <button class="play" data-grid="t0">T</button>
-        <button class="play" data-grid="t1">T</button>
-        <button class="play" data-grid="t2">T</button>
-        <button class="play" data-grid="m0">M</button>
-        <button class="play" data-grid="m1">M</button>
-        <button class="play" data-grid="m2">M</button>
-        <button class="play" data-grid="b0">B</button>
-        <button class="play" data-grid="b1">B</button>
-        <button class="play" data-grid="b2">B</button>
+        <div class="top">
+          <button class="play" data-grid="1"></button>
+          <button class="play" data-grid="2"></button>
+          <button class="play" data-grid="3"></button>
+        </div>
+        <div class="middle">
+          <button class="play" data-grid="4"></button>
+          <button class="play" data-grid="5"></button>
+          <button class="play" data-grid="6"></button>
+        </div>
+        <div class="bottom">
+          <button class="play" data-grid="7"></button>
+          <button class="play" data-grid="8"></button>
+          <button class="play" data-grid="9"></button>
+        </div>
       </div>
   </body>
   <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="tic-tac-toe.js"></script>
 </html>

@@ -4,75 +4,64 @@ function TicTacToe(callback) {
   this._plays = 0
   this._current_player = this._player_X
   this._gameboard = {
-    'top_row': [[],[],[]],
-    'middle_row': [[],[],[]],
-    'bottom_row': [[],[],[]]
+    1: 'a',
+    2: 'b',
+    3: 'c',
+    4: 'd',
+    5: 'e',
+    6: 'f',
+    7: 'g',
+    8: 'h',
+    9: 'i'
   }
 }
 
 TicTacToe.prototype.makePlay = function(spot) {
   this._plays++
-  var board = this._gameboard
-  var row = spot.charAt(0)
-  var col = spot.charAt(1)
 
-  if (row === 't') {
-    if (this._gameboard['top_row'][0][col] === undefined) {
-      this._gameboard['top_row'][0][col] = this._current_player
-    } else {
-      return alert("This space has already been played!")
-    }
-  } else if (row === 'm') {
-    if (this._gameboard['middle_row'][0][col] === undefined) {
-      this._gameboard['middle_row'][0][col] = this._current_player
-    } else {
-      return alert("This space has already been played!")
-    }
-  } else if (row === 'b') {
-    if (this._gameboard['bottom_row'][0][col] === undefined) {
-      this._gameboard['bottom_row'][0][col] = this._current_player
-    } else {
-      return alert("This space has already been played!")
-    }
+  if ((this._gameboard[spot] !== 'X') && (this._gameboard[spot] !== 'O')) {
+    this._gameboard[spot] = this._current_player
+  } else {
+    return alert("This space has already been played!")
   }
 
-  var result = this.hasWon(row, col)
+  var result = this.hasWon()
 
   if (result === true) {
-    alert("Yay")
-    // Do other stuff:
-      // Mark win
-      // Prompt to start new game
-  } else if ((result === false) && (this._count === 9)) {
-    // Mark Cat's game
-    // Prompt to start new game
+    var winner = this._current_player
+    this.turnSwitch()
+    var loser = this._current_player
+
+    $('.' + loser).switchClass(loser, winner)
+    $('.play').switchClass('play', winner)
+
+  } else if ((result === false) && (this._plays === 9)) {
+    $('.X').switchClass('X', 'C')
+    $('.O').switchClass('O', 'C')
   } else {
     this.turnSwitch()
   }
 }
 
-TicTacToe.prototype.hasWon = function(row, col) {
-  // This works, but can I check only the combos from the spot coming in? This would reduce the number of win combos to check down to 3 (rather than checking all 8). 
-  var top = this._gameboard['top_row'][0]
-  var mid = this._gameboard['middle_row'][0]
-  var bot = this._gameboard['top_row'][0]
+TicTacToe.prototype.hasWon = function() {
+  var board = this._gameboard
 
-  if (top[0] === (top[1] === top[2])) {
+  if ((board[1] === board[2]) && (board[1] === board[3])) {
     return true
-  } else if (mid[0] === (mid[1] === mid[2])) {
+  } else if ((board[4] === board[5]) && (board[4] === board[6])) {
     return true
-  } else if (bot[0] === (bot[1] === bot[2])) {
+  } else if ((board[7] === board[8]) && (board[7] === board[9])) {
     return true
-  } else if (top[0] === (mid[0] === bot[0])) {
+  } else if ((board[1] === board[4]) && (board[1] === board[7])) {
     return true
-  } else if (top[1] === (mid[1] === bot[1])) {
+  } else if ((board[2] === board[5]) && (board[2] === board[8])) {
     return true
-  } else if (top[2] === (mid[2] === bot[2])) {
+  } else if ((board[3] === board[6]) && (board[3] === board[9])) {
     return true
-  } else if (top[0] === (mid[1] === bot[2])) {
+  } else if ((board[1] === board[5]) && (board[1] === board[9])) {
     return true
-  } else if (top[2] === (mid[1] === bot[0])) {
-    return true
+  } else if ((board[3] === board[5]) && (board[3] === board[7])) {
+      return true
   } else {
     return false
   }
@@ -92,6 +81,9 @@ $(document).ready(function() {
 
   $('.play').mousedown(function(event) {
     var button = $(this).data('grid')
-    ttt.makePlay(button)
+    $(this).switchClass('play', ttt._current_player)
+
+    ttt.makePlay(button, ttt._current_player)
+
   })
 })
